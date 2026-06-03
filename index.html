@@ -61,6 +61,16 @@ tr:last-child td{border-bottom:0}
 .current-lesson .lesson-label{background:#ffe0d5;color:var(--current)}
 .rewrite-lesson .lesson-label{background:#dff4e8;color:var(--rewrite)}
 .focus-title{display:block;color:#202b39;font-weight:800;line-height:1.35}
+.module-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.module-panel{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}
+.module-panel.current-side{border-color:var(--current-line);background:var(--current-bg)}
+.module-panel.rewrite-side{border-color:var(--rewrite-line);background:var(--rewrite-bg)}
+.module-panel h3{margin-bottom:10px}
+.module-list{display:grid;gap:10px}
+.module-item{border:1px solid rgba(24,32,42,.12);border-radius:8px;background:rgba(255,255,255,.72);padding:11px}
+.module-title{display:block;color:#202b39;font-weight:850;line-height:1.35;margin-bottom:6px}
+.module-item ul{margin:0;padding-left:19px}
+.module-item li{color:#465568;font-size:13px;margin:4px 0}
 .lesson-detail{margin-top:9px;border:1px solid #e6ebf1;border-radius:8px;background:#fbfcfe}
 .lesson-detail summary{cursor:pointer;padding:8px 10px;color:#2f4156;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
 .lesson-detail summary:hover{background:#f2f5f8}
@@ -71,7 +81,7 @@ ul{margin:8px 0 0;padding-left:20px}
 li{margin:6px 0;color:var(--muted)}
 footer{margin-top:22px;color:var(--muted);font-size:13px}
 @media(max-width:850px){
-  .summary,.compare{grid-template-columns:1fr}
+  .summary,.compare,.module-breakdown{grid-template-columns:1fr}
   .day-head{grid-template-columns:1fr}
   main{padding-left:16px;padding-right:16px}
 }
@@ -82,7 +92,7 @@ footer{margin-top:22px;color:var(--muted);font-size:13px}
 <main class="wrap">
   <section class="summary">
     <div class="stat"><strong>6</strong><span>day-level comparisons</span></div>
-    <div class="stat"><strong>17</strong><span>lesson-focus differences</span></div>
+    <div class="stat"><strong>19</strong><span>lesson-focus differences</span></div>
     <div class="stat"><strong>0</strong><span>file paths shown</span></div>
   </section>
   <div class="legend" aria-label="Comparison color legend">
@@ -96,7 +106,23 @@ footer{margin-top:22px;color:var(--muted);font-size:13px}
     <section class="current"><h3>Current</h3><p>The current Day 1 is mostly about using Claude Cowork for B2B cold outreach and sales workflow automation.</p></section>
     <section class="rewrite"><h3>Rewrite</h3><p>The rewrite turns Day 1 into a broader foundation for Claude Cowork: delegation, inbox work, Google Drive intelligence, and Canva graphics.</p></section>
   </div>
-  <div class="mapping"><h3>What changes lesson by lesson</h3><table><thead><tr><th class="current-th">Current lesson focus</th><th class="rewrite-th">Rewrite lesson focus</th><th>Difference</th></tr></thead><tbody><tr><td class="current-lesson"><span class="lesson-label">Current Lesson 1</span><span class="focus-title">Cold outreach introduction</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lesson 1</span><span class="focus-title">Claude Cowork introduction and delegation practice</span></td><td>Learners start by understanding Cowork as a general collaboration tool, not only a sales tool.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current lesson frames Cowork around outreach, leads, and sales tasks from the beginning.</li><li>The rewrite first teaches how to delegate everyday work clearly before narrowing into specialized business workflows.</li><li>This makes Day 1 feel more beginner-friendly because learners practice asking Cowork to help with broad operational tasks first.</li></ul></details></td></tr><tr><td class="current-lesson"><span class="lesson-label">Current Lesson 2</span><span class="focus-title">Sales workflow automation</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lesson 2</span><span class="focus-title">Inbox management and reporting</span></td><td>The day now teaches practical daily operations: sorting, filling, and reporting from inbox-style work.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current flow centers on sales automation mechanics.</li><li>The rewrite introduces a more common workplace pattern: read incoming information, organize it, and produce a usable report.</li><li>The main skill shift is from outreach execution to administrative judgment and clean handoff work.</li></ul></details></td></tr><tr><td class="current-lesson"><span class="lesson-label">Current Lesson 3</span><span class="focus-title">Cold email system building</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lesson 3</span><span class="focus-title">Google Drive and Canva connector workflows</span></td><td>Learners practice cross-file research and visual asset creation before moving into sales.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current day builds toward cold-email system creation.</li><li>The rewrite adds Google Drive intelligence and Canva-style visual output as early connector practice.</li><li>This broadens the day from one sales use case into a foundation for document, file, and design support workflows.</li></ul></details></td></tr></tbody></table></div>
+  <div class="module-breakdown" aria-label="Day 1 module structure from screenshots">
+    <section class="module-panel current-side">
+      <h3>Current Day 1 modules</h3>
+      <div class="module-list">
+        <div class="module-item"><span class="module-title">Supercharge Your Sales Workflow with Claude Cowork</span><ul><li>Supercharge Your Sales Workflow with Claude Cowork</li><li>Automating Your Sales Workflow</li></ul></div>
+        <div class="module-item"><span class="module-title">Claude Cowork for Cold Outreach (B2B Sales)</span><ul><li>Claude Cowork For Cold Outreach (B2B Sales)</li><li>Build a Cold Email System Using Claude Cowork</li><li>AI Cold Email System Using Claude Cowork + Apollo</li></ul></div>
+      </div>
+    </section>
+    <section class="module-panel rewrite-side">
+      <h3>Rewrite Day 1 modules</h3>
+      <div class="module-list">
+        <div class="module-item"><span class="module-title">Collaborative AI Workflows with Claude Cowork</span><ul><li>Intro to Claude Cowork</li><li>Cowork Hands-On Delegation</li></ul></div>
+        <div class="module-item"><span class="module-title">Connected AI Workflows</span><ul><li>Quality Graphics with Canva</li><li>Google Drive Connections</li><li>AI Inbox Management</li></ul></div>
+      </div>
+    </section>
+  </div>
+  <div class="mapping"><h3>What changes lesson by lesson</h3><table><thead><tr><th class="current-th">Current lesson focus</th><th class="rewrite-th">Rewrite lesson focus</th><th>Difference</th></tr></thead><tbody><tr><td class="current-lesson"><span class="lesson-label">Current Module 1 / Lesson 1</span><span class="focus-title">Supercharge Your Sales Workflow with Claude Cowork</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Module 1 / Lesson 1</span><span class="focus-title">Intro to Claude Cowork</span></td><td>The opening moves from a sales-specific Cowork use case to a general introduction to Cowork as a collaboration tool.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current lesson immediately frames Cowork around sales acceleration.</li><li>The rewrite starts with what Cowork is, how learners should talk to it, and how it fits into daily work.</li><li>This makes the first lesson easier for learners who need the tool foundation before sales workflow examples.</li></ul></details></td></tr><tr><td class="current-lesson"><span class="lesson-label">Current Module 1 / Lesson 2</span><span class="focus-title">Automating Your Sales Workflow</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Module 1 / Lesson 2</span><span class="focus-title">Cowork Hands-On Delegation</span></td><td>The automation lesson becomes a hands-on delegation lesson, shifting from sales pipeline mechanics to practical task handoff.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current lesson teaches learners to automate sales workflow steps.</li><li>The rewrite teaches learners to delegate tasks clearly and evaluate Cowork output.</li><li>The skill becomes broader: learners practice giving Cowork instructions before using it for specialized sales or operations tasks.</li></ul></details></td></tr><tr><td class="current-lesson"><span class="lesson-label">Current Module 2 / Lesson 1</span><span class="focus-title">Claude Cowork For Cold Outreach (B2B Sales)</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Module 2 / Lesson 1</span><span class="focus-title">Quality Graphics with Canva</span></td><td>Cold outreach is no longer the immediate second module opener; the rewrite introduces connected output work through Canva-style graphic creation.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current second module stays inside B2B sales and outreach.</li><li>The rewrite broadens the day into connected AI workflows, beginning with a visual deliverable.</li><li>This gives learners an example of Cowork or connector support beyond emails and prospects.</li></ul></details></td></tr><tr><td class="current-lesson"><span class="lesson-label">Current Module 2 / Lesson 2</span><span class="focus-title">Build a Cold Email System Using Claude Cowork</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Module 2 / Lesson 2</span><span class="focus-title">Google Drive Connections</span></td><td>The cold-email system build is replaced by file and document intelligence using Google Drive.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current lesson builds toward outbound email generation and sales system structure.</li><li>The rewrite teaches learners to connect work across stored files and use Drive context in AI workflows.</li><li>The learner output changes from campaign infrastructure to a reusable research and document-support workflow.</li></ul></details></td></tr><tr><td class="current-lesson"><span class="lesson-label">Current Module 2 / Lesson 3</span><span class="focus-title">AI Cold Email System Using Claude Cowork + Apollo</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Module 2 / Lesson 3</span><span class="focus-title">AI Inbox Management</span></td><td>The Apollo-based cold-email system is replaced by inbox management, making the day more about daily operations than outbound sales tooling.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current lesson combines Cowork with Apollo for more advanced outbound sales workflow.</li><li>The rewrite ends the day with inbox triage, organization, and reporting-style work.</li><li>This changes the day outcome from sales prospecting infrastructure to a broader operations workflow learners can reuse in many office contexts.</li></ul></details></td></tr></tbody></table></div>
 </article>
 <article class="day-card">
   <div class="day-head"><span>Day 2</span><h2>From plugin tooling to responsible sales systems</h2></div>
