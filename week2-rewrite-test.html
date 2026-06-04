@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 2 Rewrite Preview</title>
+<style>
+:root{
+  --ink:#18202a;
+  --muted:#5c6876;
+  --paper:#f5f7fa;
+  --panel:#fff;
+  --line:#d9dee8;
+  --blue:#255f9f;
+  --current:#9a3f2b;
+  --current-bg:#fff4ef;
+  --current-line:#e6b3a3;
+  --rewrite:#1f7a4d;
+  --rewrite-bg:#effaf3;
+  --rewrite-line:#a8d7bd;
+  --amber:#8a5a10;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+header{background:#172334;color:white;padding:42px 24px 32px}
+.wrap{max-width:1120px;margin:0 auto}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:#bfd0e3}
+h1{font-size:clamp(30px,4vw,48px);line-height:1.08;letter-spacing:0;margin:10px 0}
+.sub{max-width:860px;color:#dbe6f2;font-size:17px;margin:0}
+main{padding:28px 24px 56px}
+.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:-16px 0 20px}
+.stat,.day-card,.minor{background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:0 4px 16px rgba(23,35,52,.05)}
+.stat{padding:16px}
+.stat strong{display:block;font-size:28px;line-height:1;margin-bottom:8px}
+.stat span,.muted{color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px}
+.legend span{display:inline-flex;align-items:center;border-radius:999px;padding:7px 12px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.legend-current{background:var(--current-bg);border:1px solid var(--current-line);color:var(--current)}
+.legend-rewrite{background:var(--rewrite-bg);border:1px solid var(--rewrite-line);color:var(--rewrite)}
+.day-card{padding:20px;margin:14px 0;border-left:6px solid var(--blue)}
+.day-head{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:start}
+.day-head span{font-weight:800;color:var(--blue)}
+h2{font-size:23px;line-height:1.2;margin:0 0 12px;letter-spacing:0}
+h3{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 7px}
+p{margin:0}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
+.compare section{border:1px solid var(--line);border-radius:8px;padding:14px;position:relative}
+.compare .current{background:var(--current-bg);border-color:var(--current-line);border-left:7px solid var(--current)}
+.compare .rewrite{background:var(--rewrite-bg);border-color:var(--rewrite-line);border-left:7px solid var(--rewrite)}
+.compare h3{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;margin-bottom:8px;font-size:12px;font-weight:900}
+.current h3{background:#ffe0d5;color:var(--current)}
+.rewrite h3{background:#dff4e8;color:var(--rewrite)}
+.module-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.module-panel{border:1px solid var(--line);border-radius:8px;background:#fff;padding:14px}
+.module-panel.current-side{border-color:var(--current-line);background:var(--current-bg)}
+.module-panel.rewrite-side{border-color:var(--rewrite-line);background:var(--rewrite-bg)}
+.module-panel h3{margin-bottom:10px}
+.module-item{border:1px solid rgba(24,32,42,.12);border-radius:8px;background:rgba(255,255,255,.72);padding:11px}
+.module-item + .module-item{margin-top:10px}
+.module-title{display:block;color:#202b39;font-weight:850;line-height:1.35;margin-bottom:6px}
+.module-item p{display:none}
+.module-item ul{margin:0;padding-left:19px}
+.module-item li{color:#465568;font-size:13px;margin:4px 0}
+.mapping{margin-top:14px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+th,td{border-bottom:1px solid var(--line);padding:11px;text-align:left;vertical-align:top;font-size:14px}
+th{background:#eef3f8;color:#425164;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+th.current-th{background:#fff0eb;color:var(--current)}
+th.rewrite-th{background:#edf9f1;color:var(--rewrite)}
+tr:last-child td{border-bottom:0}
+.lesson-label{display:inline-flex;align-items:center;border-radius:999px;padding:3px 8px;margin:0 0 7px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;background:#eef3f8;color:#34465a}
+.current-lesson .lesson-label{background:#ffe0d5;color:var(--current)}
+.rewrite-lesson .lesson-label{background:#dff4e8;color:var(--rewrite)}
+.focus-title{display:block;color:#202b39;font-weight:800;line-height:1.35}
+.lesson-detail{margin-top:9px;border:1px solid #e6ebf1;border-radius:8px;background:#fbfcfe}
+.lesson-detail summary{cursor:pointer;padding:8px 10px;color:#2f4156;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.lesson-detail summary:hover{background:#f2f5f8}
+.lesson-detail ul{margin:0;padding:0 12px 12px 26px}
+.lesson-detail li{margin:6px 0;color:#465568;font-size:13px}
+.minor{padding:16px;margin-top:18px;border-left:4px solid var(--amber)}
+ul{margin:8px 0 0;padding-left:20px}
+li{margin:6px 0;color:var(--muted)}
+footer{margin-top:22px;color:var(--muted);font-size:13px}
+@media(max-width:850px){
+  .summary,.compare,.module-breakdown{grid-template-columns:1fr}
+  .day-head{grid-template-columns:1fr}
+  main{padding-left:16px;padding-right:16px}
+}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="eyebrow">Arca Academy Curriculum Preview Test</div><h1>Week 2 rewrites</h1><p class="sub">A day-by-day, lesson-by-lesson view of what present Week 2 changes from and into. File paths and structural details are intentionally left out.</p></div></header>
+<main class="wrap">
+  <section class="summary"><div class="stat"><strong>5</strong><span>day-level comparisons</span></div><div class="stat"><strong>31</strong><span>rewrite lessons listed</span></div><div class="stat"><strong>0</strong><span>old pages overwritten</span></div></section>
+  <div class="legend" aria-label="Comparison color legend"><span class="legend-current">Current version</span><span class="legend-rewrite">Rewrite version</span></div>
+
+  <article class="day-card">
+    <div class="day-head"><span>Day 1</span><h2>From general Claude Code skills to a PawPrint Tees skill system</h2></div>
+    <div class="compare">
+      <section class="current"><h3>Current</h3><p>Current Day 1 introduces Claude Code skills, installs a marketing skills library, practices context/chaining, and ends with a creative skill-set challenge.</p></section>
+      <section class="rewrite"><h3>Rewrite</h3><p>Rewrite Day 1 turns the same skills topic into a client-style build for PawPrint Tees, with a clearer sequence from concepts to custom skills, community skill evaluation, and a three-skill social media assistant.</p></section>
+    </div>
+    <div class="module-breakdown">
+      <section class="module-panel current-side"><h3>Current Day 1 modules</h3>
+        <div class="module-item"><span class="module-title">Skills Foundation</span><ul><li>Skills Foundations</li><li>Install the Marketing Skills Library</li><li>Advanced Skills - Context &amp; Chaining</li></ul></div>
+        <div class="module-item"><span class="module-title">Build Your Own Skill Set</span><ul><li>Build Your Skill Set - Creative Challenge</li></ul></div>
+      </section>
+      <section class="module-panel rewrite-side"><h3>Rewrite Day 1 modules</h3>
+        <div class="module-item"><span class="module-title">Rewrite Day 1</span><ul><li>What Are Skills? (Concepts + Client Kickoff)</li><li>Hands-On - Install &amp; Explore Skills from the Anthropic Repo</li><li>Build Your First Custom Skill for PawPrint Tees</li><li>Advanced Skill Techniques - Build /morning-post with a Shared Brand Voice File</li><li>Discover, Evaluate, and Customize Community Skills</li><li>Assemble the Content Pipeline - 3-Skill Social Media Assistant</li><li>Day 1 Wrap-Up - Watch Sabrina Ramonov's AI Social Media System</li></ul></div>
+      </section>
+    </div>
+    <div class="mapping"><h3>What changes lesson by lesson</h3><table><thead><tr><th class="current-th">Current lesson focus</th><th class="rewrite-th">Rewrite lesson focus</th><th>Difference</th></tr></thead><tbody>
+      <tr><td class="current-lesson"><span class="lesson-label">Current Lessons 1-2</span><span class="focus-title">Skills foundations and marketing skill library setup</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lessons 1-2</span><span class="focus-title">Skills concepts, client kickoff, and Anthropic repo exploration</span></td><td>The intro becomes more concrete and client-framed.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current version teaches what skills are and installs a marketing library.</li><li>The rewrite adds a client scenario immediately so learners know what the skills are for.</li><li>Community/repo exploration is framed as evaluation, not just installation.</li></ul></details></td></tr>
+      <tr><td class="current-lesson"><span class="lesson-label">Current Lesson 3</span><span class="focus-title">Advanced Skills - Context &amp; Chaining</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lessons 3-4</span><span class="focus-title">Build a custom PawPrint Tees skill and shared brand voice workflow</span></td><td>Abstract context/chaining becomes a branded custom-skill build.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current lesson teaches skills that reference files and work together.</li><li>The rewrite applies those ideas to a named brand voice file and a /morning-post workflow.</li><li>The output is easier to inspect because it is tied to a specific brand and use case.</li></ul></details></td></tr>
+      <tr><td class="current-lesson"><span class="lesson-label">Current Challenge</span><span class="focus-title">Build a connected set of skills</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lessons 5-7</span><span class="focus-title">Evaluate community skills, assemble a pipeline, and audit with Sabrina's system</span></td><td>The final challenge becomes a longer production pipeline.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current capstone asks learners to build three or more connected skills.</li><li>The rewrite extends that into evaluation, assembly, and reflection.</li><li>Learners end with a named social media assistant rather than a looser skill set.</li></ul></details></td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="day-card">
+    <div class="day-head"><span>Day 2</span><h2>From social-media content creation to a safer Blotato publishing workflow</h2></div>
+    <div class="compare">
+      <section class="current"><h3>Current</h3><p>Current Day 2 uses Sabrina Ramonov's Claude Code tutorial, social media content creation, and Blotato connection to publish PawPrint Tees content.</p></section>
+      <section class="rewrite"><h3>Rewrite</h3><p>Rewrite Day 2 keeps the PawPrint Tees social content focus but makes the workflow more operational: project CLAUDE.md, Blotato safety, a four-platform post capstone, MCP connection, and competitor analysis.</p></section>
+    </div>
+    <div class="module-breakdown">
+      <section class="module-panel current-side"><h3>Current Day 2 modules</h3>
+        <div class="module-item"><span class="module-title">Ultimate Claude Code Tutorial</span><ul><li>Sabrina Ramonov's Ultimate Claude Code Tutorial</li><li>Social Media Content Creation with Claude Code</li><li>Connecting Blotato to Claude Code</li></ul></div>
+      </section>
+      <section class="module-panel rewrite-side"><h3>Rewrite Day 2 modules</h3>
+        <div class="module-item"><span class="module-title">Rewrite Day 2</span><ul><li>CLAUDE.md for the Project + Blotato Safety Briefing</li><li>Day 2 Capstone - 4-Platform Post + Full Instagram Carousel</li><li>Connect Blotato to Claude Code (MCP Bridge)</li><li>Competitive Analysis + Day 2 Wrap-Up</li></ul></div>
+      </section>
+    </div>
+    <div class="mapping"><h3>What changes lesson by lesson</h3><table><thead><tr><th class="current-th">Current lesson focus</th><th class="rewrite-th">Rewrite lesson focus</th><th>Difference</th></tr></thead><tbody>
+      <tr><td class="current-lesson"><span class="lesson-label">Current Lesson 1</span><span class="focus-title">Sabrina Ramonov tutorial and CLAUDE.md setup</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lesson 1</span><span class="focus-title">Project CLAUDE.md plus Blotato safety briefing</span></td><td>The setup becomes more safety-aware and project-specific.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current lesson uses the tutorial to set up brand guidelines.</li><li>The rewrite explicitly adds Blotato safety before publishing work begins.</li><li>This makes the day better suited for real social posting workflows.</li></ul></details></td></tr>
+      <tr><td class="current-lesson"><span class="lesson-label">Current Lesson 2</span><span class="focus-title">Social media content creation with Claude Code</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lesson 2</span><span class="focus-title">Four-platform post plus full Instagram carousel capstone</span></td><td>The content exercise becomes a clearer deliverable.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current lesson teaches content formulas and creates posts.</li><li>The rewrite defines the final output as a four-platform post set plus a carousel.</li><li>This gives reviewers a cleaner artifact to judge.</li></ul></details></td></tr>
+      <tr><td class="current-lesson"><span class="lesson-label">Current Lesson 3</span><span class="focus-title">Connecting Blotato to Claude Code</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lessons 3-4</span><span class="focus-title">MCP bridge plus competitive analysis wrap-up</span></td><td>The Blotato connection is kept, then expanded with market context.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current version focuses on the technical bridge to publishing.</li><li>The rewrite keeps the MCP bridge and adds competitor analysis.</li><li>The day ends with better content judgment, not only technical setup.</li></ul></details></td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="day-card">
+    <div class="day-head"><span>Day 3</span><h2>From a broad Blotato deep dive to shipping video and bulk content</h2></div>
+    <div class="compare">
+      <section class="current"><h3>Current</h3><p>Current Day 3 explores Blotato setup verification, advanced templates, content sourcing, AI video creation, automated pipelines, bulk generation, cross-platform adaptation, and self-education.</p></section>
+      <section class="rewrite"><h3>Rewrite</h3><p>Rewrite Day 3 organizes those topics into a stronger shipping day: verification, viral-video notes, two AI videos, brand visual specs, source exercises, automation, a 15-post bulk challenge, and platform-native adaptation.</p></section>
+    </div>
+    <div class="module-breakdown">
+      <section class="module-panel current-side"><h3>Current Day 3 modules</h3>
+        <div class="module-item"><span class="module-title">Blotato Setup and Templates</span><ul><li>Day 2 Recap + Blotato Setup Verification</li><li>Advanced Blotato Video Techniques</li><li>Advanced Visual Templates</li><li>Content Sourcing at Scale</li></ul></div>
+        <div class="module-item"><span class="module-title">Video and Pipeline Work</span><ul><li>AI Video Creation - Hands-On</li><li>Building Automated Pipelines</li><li>Bulk Content Generation - One Week in One Session</li><li>Cross-Platform Adaptation Strategies</li><li>Self-Education &amp; Video Resources</li></ul></div>
+      </section>
+      <section class="module-panel rewrite-side"><h3>Rewrite Day 3 modules</h3>
+        <div class="module-item"><span class="module-title">Rewrite Day 3</span><ul><li>Day 2 Recap + Blotato Verification + Day 3 Preview</li><li>Viral Videos with Blotato (Watch + Structured Notes)</li><li>Ship Two AI Videos for PawPrint Tees (Day 3 Capstone)</li><li>New Blotato Templates + Lock In Brand Visual Specs</li><li>Content Sourcing at Scale - 6 Source Types, 3 Exercises</li><li>Automated Content Pipelines - Day 3 Capstone</li><li>Ship a Full Week of PawPrint Tees Content (15-Post Bulk Challenge)</li><li>Cross-Platform Adaptation (One Piece to 5+ Platform-Native Forms)</li></ul></div>
+      </section>
+    </div>
+    <div class="mapping"><h3>What changes lesson by lesson</h3><table><thead><tr><th class="current-th">Current lesson focus</th><th class="rewrite-th">Rewrite lesson focus</th><th>Difference</th></tr></thead><tbody>
+      <tr><td class="current-lesson"><span class="lesson-label">Current Setup</span><span class="focus-title">Day 2 recap and Blotato setup verification</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lesson 1</span><span class="focus-title">Blotato verification plus Day 3 preview</span></td><td>The day opening remains a verification checkpoint but becomes more explicit about what learners will ship next.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current day checks setup and identifies gaps.</li><li>The rewrite uses that check to preview the production tasks ahead.</li><li>This makes the long Blotato day feel more sequenced.</li></ul></details></td></tr>
+      <tr><td class="current-lesson"><span class="lesson-label">Current Video Work</span><span class="focus-title">Advanced video techniques and AI video creation</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lessons 2-3</span><span class="focus-title">Viral-video notes and two PawPrint Tees AI videos</span></td><td>Video learning becomes a concrete two-video deliverable.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current version teaches advanced techniques and hands-on video creation.</li><li>The rewrite asks learners to study viral formats and then ship two videos.</li><li>The output is more specific and brand-aligned.</li></ul></details></td></tr>
+      <tr><td class="current-lesson"><span class="lesson-label">Current Template/Source Work</span><span class="focus-title">Advanced visual templates and content sourcing at scale</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lessons 4-5</span><span class="focus-title">Brand visual specs plus 6 source types and exercises</span></td><td>Template exploration becomes a stronger visual-spec and sourcing system.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current version explores templates and source types.</li><li>The rewrite turns those into brand visual specifications and structured exercises.</li><li>This makes quality control more visible.</li></ul></details></td></tr>
+      <tr><td class="current-lesson"><span class="lesson-label">Current Pipeline Work</span><span class="focus-title">Automated pipelines, bulk generation, and cross-platform adaptation</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lessons 6-8</span><span class="focus-title">Automation capstone, 15-post challenge, and platform-native adaptation</span></td><td>The production pipeline becomes more ambitious and measurable.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current version teaches the components of automated content production.</li><li>The rewrite adds clearer capstones and a named 15-post challenge.</li><li>The final adaptation task focuses on platform-native quality rather than simple reposting.</li></ul></details></td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="day-card">
+    <div class="day-head"><span>Day 4</span><h2>From Remotion practice activities to a structured code-based video sprint</h2></div>
+    <div class="compare">
+      <section class="current"><h3>Current</h3><p>Current Day 4 introduces Remotion, teaches advanced Remotion techniques, turns a product page into a launch video, then offers multiple activity recipes such as data videos, slideshows, shorts, countdowns, tutorials, and product ads.</p></section>
+      <section class="rewrite"><h3>Rewrite</h3><p>Rewrite Day 4 keeps Remotion but gives it a clearer progression: code-based video pivot, pro-video observation, premium product launch video, data visualization template, pitch video, short-form social video, and two creative recipes.</p></section>
+    </div>
+    <div class="module-breakdown">
+      <section class="module-panel current-side"><h3>Current Day 4 modules</h3>
+        <div class="module-item"><span class="module-title">Introduction to Remotion</span><ul><li>Introduction to Remotion</li><li>Video Lesson - Advanced Remotion Techniques</li><li>Product Page to Launch Video</li></ul></div>
+        <div class="module-item"><span class="module-title">Remotion Activities</span><ul><li>Data Visualization Video</li><li>Slideshow-Style Presentation Video</li><li>Short-Form Social Media Video</li><li>Countdown &amp; Unboxing Video</li><li>Animated Tutorial Video - Website Creation Journey</li><li>End-to-End Product Ad</li></ul></div>
+      </section>
+      <section class="module-panel rewrite-side"><h3>Rewrite Day 4 modules</h3>
+        <div class="module-item"><span class="module-title">Rewrite Day 4</span><ul><li>Motion Graphics with Remotion (Code-Based Video Pivot)</li><li>Using Remotion - Watch a Pro (Video Only)</li><li>Premium 60-Second Product Launch Video (Claude + Remotion)</li><li>Data Visualization Videos (5-Scene Template)</li><li>7-Slide Pitch Video (The Third Remotion Template)</li><li>Short-Form Social Video (The Fourth Remotion Template)</li><li>Creative Recipe - Countdown + Unboxing Reveal</li><li>Creative Recipe - Website Evolution / Case Study Video</li></ul></div>
+      </section>
+    </div>
+    <div class="mapping"><h3>What changes lesson by lesson</h3><table><thead><tr><th class="current-th">Current lesson focus</th><th class="rewrite-th">Rewrite lesson focus</th><th>Difference</th></tr></thead><tbody>
+      <tr><td class="current-lesson"><span class="lesson-label">Current Intro</span><span class="focus-title">Introduction and advanced Remotion techniques</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lessons 1-2</span><span class="focus-title">Code-based video pivot plus pro-video observation</span></td><td>The opening becomes more strategic before learners build.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current version introduces Remotion and advanced techniques directly.</li><li>The rewrite first explains the pivot to code-based video and has learners observe a professional workflow.</li><li>This gives learners better context before production work.</li></ul></details></td></tr>
+      <tr><td class="current-lesson"><span class="lesson-label">Current Launch Video</span><span class="focus-title">Product page to launch video</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lesson 3</span><span class="focus-title">Premium 60-second product launch video</span></td><td>The product launch assignment becomes more polished and constrained.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current assignment converts a product page into a video.</li><li>The rewrite specifies a premium 60-second launch video.</li><li>The target quality and format become easier to evaluate.</li></ul></details></td></tr>
+      <tr><td class="current-lesson"><span class="lesson-label">Current Activities</span><span class="focus-title">Data videos, slideshows, shorts, countdowns, tutorials, and ads</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lessons 4-8</span><span class="focus-title">Data, pitch, short-form, unboxing, and case-study recipes</span></td><td>The activity menu is reorganized into named templates and creative recipes.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current version offers several Remotion activity options.</li><li>The rewrite labels the templates more clearly and adds a pitch-video path.</li><li>The final recipes feel more like reusable production formats.</li></ul></details></td></tr>
+    </tbody></table></div>
+  </article>
+
+  <article class="day-card">
+    <div class="day-head"><span>Day 5</span><h2>From advanced tool sampler to a cleaner image/video production pipeline</h2></div>
+    <div class="compare">
+      <section class="current"><h3>Current</h3><p>Current Day 5 covers Nano Banana prompting libraries, Reel Farmer, YouTube autopipeline, Kling AI, and a Week 2 wrap-up.</p></section>
+      <section class="rewrite"><h3>Rewrite</h3><p>Rewrite Day 5 keeps the advanced-tool theme but clarifies the production sequence: image prompting mastery, self-hosted Reel Farmer, legitimate short-form sourcing, Kling AI hands-on generation, and final reflection.</p></section>
+    </div>
+    <div class="module-breakdown">
+      <section class="module-panel current-side"><h3>Current Day 5 modules</h3>
+        <div class="module-item"><span class="module-title">Advanced Tools</span><ul><li>Nano Banana Prompting Libraries Deep Dive</li><li>Reel Farmer - Clone, Build, Run</li><li>YouTube Autopipeline - The Mau Baron Method</li><li>Kling AI</li><li>Week 2 Wrap-Up and Reflection</li></ul></div>
+      </section>
+      <section class="module-panel rewrite-side"><h3>Rewrite Day 5 modules</h3>
+        <div class="module-item"><span class="module-title">Rewrite Day 5</span><ul><li>Image Prompting Mastery + Dual-Model Toolkit (GPT-Image-2 + Nano Banana 2)</li><li>Reel Farmer - Self-Hosted Open-Source Pipeline</li><li>Automated Short-Form Pipeline (Legitimate Sourcing)</li><li>Kling AI 3.0 - Hands-On Video Generation</li><li>Week 2 Wrap-Up and Reflection</li></ul></div>
+      </section>
+    </div>
+    <div class="mapping"><h3>What changes lesson by lesson</h3><table><thead><tr><th class="current-th">Current lesson focus</th><th class="rewrite-th">Rewrite lesson focus</th><th>Difference</th></tr></thead><tbody>
+      <tr><td class="current-lesson"><span class="lesson-label">Current Lesson 1</span><span class="focus-title">Nano Banana prompting libraries</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lesson 1</span><span class="focus-title">Image prompting mastery with a dual-model toolkit</span></td><td>Image prompting becomes broader and more current.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current lesson focuses on prompting libraries for Nano Banana.</li><li>The rewrite expands the toolkit to GPT-Image-2 plus Nano Banana 2.</li><li>This makes the image workflow feel more flexible and production-ready.</li></ul></details></td></tr>
+      <tr><td class="current-lesson"><span class="lesson-label">Current Lessons 2-3</span><span class="focus-title">Reel Farmer and YouTube autopipeline</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lessons 2-3</span><span class="focus-title">Self-hosted Reel Farmer plus legitimate short-form sourcing</span></td><td>The automation pipeline gets clearer boundaries around sourcing and hosting.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current version teaches Reel Farmer and the YouTube autopipeline method.</li><li>The rewrite stresses self-hosting and legitimate sourcing.</li><li>This makes the pipeline more defensible and easier to explain to stakeholders.</li></ul></details></td></tr>
+      <tr><td class="current-lesson"><span class="lesson-label">Current Lesson 4</span><span class="focus-title">Kling AI</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Lesson 4</span><span class="focus-title">Kling AI 3.0 hands-on video generation</span></td><td>The Kling activity becomes more explicitly hands-on and versioned.<details class="lesson-detail"><summary>More detail</summary><ul><li>The current lesson introduces Kling AI for client-ready video deliverables.</li><li>The rewrite names Kling AI 3.0 and makes hands-on generation the center.</li><li>The output expectation is clearer.</li></ul></details></td></tr>
+      <tr><td class="current-lesson"><span class="lesson-label">Current Wrap-Up</span><span class="focus-title">Week 2 wrap-up and reflection</span></td><td class="rewrite-lesson"><span class="lesson-label">Rewrite Wrap-Up</span><span class="focus-title">Week 2 wrap-up and reflection</span></td><td>The reflection remains, but follows a cleaner production sequence.<details class="lesson-detail"><summary>More detail</summary><ul><li>Both versions close with reflection.</li><li>The rewrite makes the preceding image, video, and sourcing outputs easier to summarize.</li><li>The final reflection should be simpler because each day has more concrete deliverables.</li></ul></details></td></tr>
+    </tbody></table></div>
+  </article>
+
+  <section class="minor"><h2>Small Operational Notes</h2><ul><li>This is a new separate Week 2 test page in the existing hypotheticals repo.</li><li>The Week 1 test page, the root Week 4 preview, and older changelog pages are not part of this update.</li><li>This page focuses on curriculum and content changes, not file paths, visibility, or ordering.</li></ul></section>
+  <footer>Generated June 05, 2026. Source: local Week 2 and local Re-write Week 2 lesson folders.</footer>
+</main>
+</body>
+</html>
